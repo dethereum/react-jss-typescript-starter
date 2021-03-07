@@ -1,5 +1,3 @@
-/* eslint-disable import/first */
-
 import 'isomorphic-fetch';
 import { ApolloClient, ApolloClientOptions } from 'apollo-client';
 import { InMemoryCache, IntrospectionFragmentMatcher, NormalizedCacheObject } from 'apollo-cache-inmemory';

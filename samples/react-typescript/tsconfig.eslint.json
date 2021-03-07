@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.json",
+    "include": [
+        "server/**/*.js",
+        "server/**/*.ts",
+        "sitecore/**/*.js",
+        "sitecore/**/*.ts",
+        "server.disconnectedproxy/**/*.js",
+        "server.bundle/**/*.js",
+        "scripts/**/*.js",
+        "pipelines/pipeline.config.js",
+        "src/setupProxy.js",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        ".eslintrc.js",
+        "plopfile.js",
+        "jss-create.js",
+    ]
+  }

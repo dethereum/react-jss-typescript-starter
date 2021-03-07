@@ -15,7 +15,7 @@ export interface GlobalData {
     sitecoreConnected: string;      // "true" or "false"
 }
 
-export interface AppWindow extends Window {
+type AppWindow = (typeof window) & {
     app: GlobalData;
 }
 
