@@ -4,7 +4,6 @@
 const fs = require('fs');
 const path = require('path');
 const prog = require('caporal');
-const D2UConverter = require('@dpwolfe/dos2unix').dos2unix; // original version has bug
 const { execFile, execFileSync } = require('child_process');
 const ngrok = require('ngrok');
 
@@ -32,17 +31,7 @@ prog
   .command('build', 'Build the Docker image locally')
   .action(function (args, options, logger) {
     const dockerDir = path.resolve(__dirname, '../Docker');
-    // DEPRICATED: files now converted to unix format in Dockerfile during build
-    // logger.info(`Directory with Docker configuration files to convert from Windows to Linux format: ${dockerDir}`);
-    // const d2u = new D2UConverter({ glob: { cwd: dockerDir } })
-    //   .on('error', function (err) {
-    //     logger.error(err);
-    //   })
-    //   .on('end', function (stats) {
-    //     logger.info(stats);
-    //   });
-    //     // Linux is not really happy with files in DOS format, make sure they are in unix format
-    //   d2u.process(['init.sh', 'sshd_config', 'nginx.config', 'process.yml']);
+
     logger.info(`Creating Docker image for app '${packageJsonConfig.name}'`);
     const docker = execFile(
       'docker',
