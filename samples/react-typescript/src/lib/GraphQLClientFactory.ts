@@ -1,6 +1,7 @@
-import 'isomorphic-fetch';
-import { ApolloClient, ApolloClientOptions } from 'apollo-client';
-import { InMemoryCache, IntrospectionFragmentMatcher, NormalizedCacheObject } from 'apollo-cache-inmemory';
+
+import { ApolloClient, ApolloClientOptions, ApolloLink } from '@apollo/client';
+import { InMemoryCache, NormalizedCacheObject } from '@apollo/client/cache';
+import { sha256 } from 'crypto-hash';
 
 /*
   INTROSPECTION DATA
@@ -8,7 +9,7 @@ import { InMemoryCache, IntrospectionFragmentMatcher, NormalizedCacheObject } fr
   This enables the Apollo cache to process fragments on interface types correctly.
   If this file does not exist, you may need to run the `jss graphql:update` script.
 */
-import introspectionQueryResultData from '../temp/GraphQLFragmentTypes.json';
+// import possibleTypes from '../temp/GraphQLFragmentTypes.json';
 
 /*
   QUERY LINK SELECTION
@@ -25,25 +26,63 @@ import introspectionQueryResultData from '../temp/GraphQLFragmentTypes.json';
 // const link = createHttpLink({ uri: endpoint, credentials: 'include' });
 
 // ...or a batched link (multiple queries within 10ms all go in one HTTP request)
-import { BatchHttpLink } from 'apollo-link-batch-http';
+import { BatchHttpLink } from '@apollo/client/link/batch-http';
 
 // ...and an automatic persisted query link, which reduces bandwidth by using query hashes to alias content
 // the APQ link is _chained_ behind another link that performs the actual HTTP calls, so you can choose
 // APQ + batched, or APQ + http links for example.
-import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
-import { ApolloLink } from 'apollo-link';
+import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 
 export default function(endpoint: string, ssr: boolean, initialCacheState: NormalizedCacheObject): ApolloClient<NormalizedCacheObject> {
   /* HTTP link selection: default to batched + APQ */
-  const link: ApolloLink = createPersistedQueryLink().concat(
-    new BatchHttpLink({ uri: endpoint, credentials: 'include' })
+  const link: ApolloLink = createPersistedQueryLink({ sha256 }).concat(
+    new BatchHttpLink({ uri: endpoint, credentials: 'include', fetch })
   );
-
-  const cache = new InMemoryCache({
-    fragmentMatcher: new IntrospectionFragmentMatcher({
-      introspectionQueryResultData,
-    }),
-  });
+  
+  //TODO: look into what happened here
+  const cache = new InMemoryCache({possibleTypes : {
+    ItemField: [
+      {
+        "name": "ReferenceField"
+      },
+      {
+        "name": "NumberField"
+      },
+      {
+        "name": "MultilistField"
+      },
+      {
+        "name": "LinkField"
+      },
+      {
+        "name": "TextField"
+      },
+      {
+        "name": "IntegerField"
+      },
+      {
+        "name": "ImageField"
+      },
+      {
+        "name": "FileField"
+      },
+      {
+        "name": "DateField"
+      },
+      {
+        "name": "CheckboxField"
+      },
+      {
+        "name": "NameValueListField"
+      },
+      {
+        "name": "LookupField"
+      },
+      {
+        "name": "LayoutField"
+      }
+    ].map(({name}) => name),
+  }});
 
   const options: ApolloClientOptions<NormalizedCacheObject> = {
     ssrMode: ssr,

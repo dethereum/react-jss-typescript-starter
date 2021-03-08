@@ -8,8 +8,8 @@ import i18ninit from './i18n';
 import { getSitecoreGraphqlEndpoint } from './AppGlobals';
 import { LayoutServiceData, LayoutServiceContextData } from '@sitecore-jss/sitecore-jss-react';
 import latestHMR from './HMR';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
+import { NormalizedCacheObject } from '@apollo/client/cache';
+import { ApolloClient } from '@apollo/client';
 /* eslint-disable no-underscore-dangle */
 if (window && window.location && window.location.search === '?prestine') {
     // Return the content for index.html similar as loading index.html from filesystem.

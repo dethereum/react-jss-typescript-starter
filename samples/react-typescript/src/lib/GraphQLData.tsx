@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { graphql } from 'react-apollo';
 import {
   withSitecoreContext,
   resetExperienceEditorChromes,
@@ -7,8 +6,9 @@ import {
   LayoutServiceContextData,
   ComponentRendering,
 } from '@sitecore-jss/sitecore-jss-react';
-import { DocumentNode, ASTNode, OperationDefinitionNode, VariableDefinitionNode, DefinitionNode } from 'graphql';
-import { QueryOptions } from 'apollo-client';
+import { OperationDefinitionNode, VariableDefinitionNode, DefinitionNode } from 'graphql';
+import { QueryOptions, DocumentNode } from '@apollo/client';
+import { Query } from '@apollo/client/react/components'
 import { any } from 'prop-types';
 
 // Type of configuration not found yet
@@ -109,8 +109,7 @@ function GraphQLData(query: DocumentNode, configuration: any): (Component: React
           return resultProps;
         };
 
-        const GQL = graphql(query, newConfiguration)(Component);
-        return <GQL {...this.props} />;
+        return <Query query={query}  {...newConfiguration}/>
       }
 
       // eslint-disable-next-line class-methods-use-this

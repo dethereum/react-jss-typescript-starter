@@ -24,6 +24,7 @@ const sectionComponentWithPlaceholderInjected = withPlaceholder({
   // Using the same technique as injecting the placeholder, we wrap the component again to inject the
   // `sitecoreContext` prop.
 const GridSection = withSitecoreContext()(
+    //@ts-expect-error
     sectionComponentWithPlaceholderInjected
   );
   

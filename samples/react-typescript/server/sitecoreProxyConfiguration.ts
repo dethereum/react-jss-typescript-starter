@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import ipaddr from 'ipaddr.js';
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 import NodeCache from 'node-cache';
 import { ProxyConfig } from '@sitecore-jss/sitecore-jss-proxy/types/ProxyConfig';
 import { IncomingMessage, ClientRequest, ServerResponse } from 'http';

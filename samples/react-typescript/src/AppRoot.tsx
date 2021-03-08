@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { SitecoreContext } from '@sitecore-jss/sitecore-jss-react';
 import { Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/client/react';
 import componentFactory from './temp/componentFactory';
 import SitecoreContextFactory from './lib/SitecoreContextFactory';
 import RouteHandler from './RouteHandler';
-import ApolloClient from 'apollo-client';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { ApolloClient } from '@apollo/client';
+import { NormalizedCacheObject } from '@apollo/client/cache';
 
 import { StaticRouter } from 'react-router';
 

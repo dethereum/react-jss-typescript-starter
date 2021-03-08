@@ -101,6 +101,7 @@ const tabsComponentWithPlaceholderInjected = withPlaceholder({
 // Using the same technique as injecting the placeholder, we wrap the component again to inject the
 // `sitecoreContext` prop.
 const tabsWithPlaceholderAndSitecoreContext = withSitecoreContext()(
+      //@ts-expect-error
   tabsComponentWithPlaceholderInjected
 );
 

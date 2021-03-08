@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { loader as gqlLoader } from 'graphql.macro';
 import GraphQLData from '../../lib/GraphQLData';
 import { GraphQlConnectedDemoBaseProps } from './GraphQlConnectedDemo.props';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 
 const ConnectedDemoQuery: DocumentNode = gqlLoader('./query.graphql');

@@ -9,7 +9,7 @@ import NotFound from './NotFound';
 import { Environment } from './Environment';
 import { getSitecoreDefaultLanguage, getSitecoreApiKey } from './AppGlobals';
 import { Route, RouteProps, match } from 'react-router';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { NormalizedCacheObject } from '@apollo/client/cache';
 
 // Dynamic route handler for Sitecore items.
 // Because JSS app routes are defined in Sitecore, traditional static React routing isn't enough -
