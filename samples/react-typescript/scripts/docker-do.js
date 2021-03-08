@@ -30,7 +30,6 @@ prog
 
   .command('build', 'Build the Docker image locally')
   .action(function (args, options, logger) {
-    const dockerDir = path.resolve(__dirname, '../Docker');
 
     logger.info(`Creating Docker image for app '${packageJsonConfig.name}'`);
     const docker = execFile(

@@ -2,19 +2,12 @@ import * as React from 'react';
 import {
   withSitecoreContext,
   resetExperienceEditorChromes,
-  SitecoreContext,
-  LayoutServiceContextData,
   ComponentRendering,
 } from '@sitecore-jss/sitecore-jss-react';
 import { OperationDefinitionNode, VariableDefinitionNode, DefinitionNode } from 'graphql';
-import { QueryOptions, DocumentNode } from '@apollo/client';
+import { DocumentNode } from '@apollo/client';
 import { Query } from '@apollo/client/react/components'
-import { any } from 'prop-types';
 
-// Type of configuration not found yet
-type GraphQLDataConfiguration = {
-  options: QueryOptions;
-};
 
 /**
  * Higher order component that abstracts common JSS + Apollo integration needs.

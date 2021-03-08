@@ -1,14 +1,13 @@
 import * as React from 'react';
 import i18n from 'i18next';
 import Helmet from 'react-helmet';
-import { isExperienceEditorActive, dataApi, LayoutServiceData, LayoutServiceContextData, RouteData } from '@sitecore-jss/sitecore-jss-react';
+import { isExperienceEditorActive, dataApi, LayoutServiceData, LayoutServiceContextData } from '@sitecore-jss/sitecore-jss-react';
 import SitecoreContextFactory from './lib/SitecoreContextFactory';
 import { dataFetcher } from './dataFetcher';
 import Layout from './Layout';
 import NotFound from './NotFound';
 import { Environment } from './Environment';
 import { getSitecoreDefaultLanguage, getSitecoreApiKey } from './AppGlobals';
-import { Route, RouteProps, match } from 'react-router';
 import { NormalizedCacheObject } from '@apollo/client/cache';
 
 // Dynamic route handler for Sitecore items.
@@ -17,9 +16,9 @@ import { NormalizedCacheObject } from '@apollo/client/cache';
 // So react-router delegates all route rendering to this handler, which attempts to get the right
 // route data from Sitecore - and if none exists, renders the not found component.
 
-interface CustomRouteProps extends RouteProps {
+/* interface CustomRouteProps extends RouteProps {
   match: match<any>;
-};
+}; */
 
 type RouteHandlerProps = {
   route: any; // Route<CustomRouteProps>;

@@ -22,7 +22,7 @@ class GridColumnsComponent extends React.Component<GridColumnsProps> {
     }
     
     public render(): JSX.Element {
-        const { smallColumns, largeColumns, extraLargeColumns, parameters, rendering } = this.props;
+        const { smallColumns, largeColumns, extraLargeColumns, parameters } = this.props;
         if (parameters && (parameters.className !== undefined)) {
             this.setState({
                 className: parameters.className.concat(' m-grid')

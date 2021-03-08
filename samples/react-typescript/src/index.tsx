@@ -6,8 +6,6 @@ import { setServerSideRenderingState, SsrState } from './RouteHandler';
 import GraphQLClientFactory from './lib/GraphQLClientFactory';
 import i18ninit from './i18n';
 import { getSitecoreGraphqlEndpoint } from './AppGlobals';
-import { LayoutServiceData, LayoutServiceContextData } from '@sitecore-jss/sitecore-jss-react';
-import latestHMR from './HMR';
 import { NormalizedCacheObject } from '@apollo/client/cache';
 import { ApolloClient } from '@apollo/client';
 /* eslint-disable no-underscore-dangle */

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, Field } from '@sitecore-jss/sitecore-jss-react';
+import { Text } from '@sitecore-jss/sitecore-jss-react';
 import StyleguideSpecimen from '../Styleguide-Specimen';
 
 /**

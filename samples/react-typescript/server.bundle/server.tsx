@@ -1,21 +1,19 @@
 import * as serializeJavascript from 'serialize-javascript';
 import * as React from 'react';
 import { StaticRouter, matchPath } from 'react-router-dom';
-import { renderToStringWithData } from 'react-apollo';
+import { renderToStringWithData } from '@apollo/client/react/ssr';
 import Helmet from 'react-helmet';
 import GraphQLClientFactory from '../src/lib/GraphQLClientFactory';
 import i18ninit from '../src/i18n';
 import AppRoot, { routePatterns } from '../src/AppRoot';
 import { setServerSideRenderingState, SsrState } from '../src/RouteHandler';
 import { NormalizedCacheObject } from '@apollo/client/cache';
-import { ApolloClient} from '@apollo';
+import { ApolloClient} from '@apollo/client';
 import { RouteUrlParser } from '@sitecore-jss/sitecore-jss-proxy/types/RouteUrlParser';
 import { Environment } from '../src/Environment';
 import { getSitecoreGraphqlEndpoint } from '../src/AppGlobals';
 import * as fs from 'fs';
 import * as path from 'path';
-import { LayoutServiceData, LayoutServiceContextData } from '@sitecore-jss/sitecore-jss';
-import { deepStrictEqual } from 'assert';
 
 // Load the index.html template file contents:
 // In development request from http://localhost:3000?prestine (Create React App development server must be running) 
@@ -108,7 +106,7 @@ export function renderView(callback: (error: Error | null, successData: {html: s
     */
     initializei18n(state)
       .then(() => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
           if (Environment.reactAppProcessEnv.NODE_ENV !== 'production') {
               fetch('http://localhost:3000?prestine', { mode: 'no-cors', cache: 'no-cache' })
                 .then(res => res.text())

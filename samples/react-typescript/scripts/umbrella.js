@@ -7,7 +7,6 @@ const term = require('terminal-kit').terminal;
 const fs = require('fs');
 const shell = require('shelljs');
 const chalk = require('chalk');
-const packageConfig = require('../package.json');
 const prog = require('caporal');
 const crypto = require('crypto');
 const nodePlop = require('node-plop');
@@ -27,7 +26,7 @@ const CommonFieldTypes = {
     DateTime: "Datetime"
 }
 
-var progressBar, progress = 0;
+var progressBar = 0;
 var dryrun = false;
 var extension = 'js';
 
@@ -37,8 +36,7 @@ var extension = 'js';
 const getUmbrella = (ext, generator) => {
     // load an instance of plop from a plopfile
     var umbrellaScriptDir = path.resolve(__dirname, `umbrella`);
-    // get the template directory, either the JS or TypeScript template folder
-    var templateDir = path.resolve(__dirname, `umbrella/${extension}`);
+
     const plop = nodePlop(`${umbrellaScriptDir}/plopfile.js`);
     // get a generator by name
     return plop.getGenerator(generator);
@@ -63,16 +61,7 @@ const getMetaData = () => {
     })
 
 }
-const toBase64 = (text) => {
-    if (!text) return null;
-    let buff = new Buffer(text);
-    return buff.toString('base64');
-}
-const fromBase64 = (text) => {
-    if (!text) return null;
-    let buff = new Buffer(text, 'base64');
-    return buff.toString('ascii');
-}
+
 const getHashFromText = (value) => {
     if (!value) return '';
     var hash = crypto.createHash('sha1');
@@ -131,7 +120,7 @@ const saveFile = (e) => {
             } else {
                 fs.writeFile(`${outputFilePath}`, base64File, {
                     encoding: 'base64'
-                }, function (res) {
+                }, function () {
                     console.log(chalk `{gray ${e.fileName} saved}`);
                 });
             }
@@ -248,7 +237,7 @@ const processComponent = (e) => {
     return arr;
 }
 
-const processPlaceholderManifests = (e) => {
+const processPlaceholderManifests = () => {
 
     getMetaData().then(data => {
         if (data) {
@@ -264,7 +253,7 @@ const processPlaceholderManifests = (e) => {
         console.log(chalk `{red ERROR: ${e}}`);
     })
 }
-const processTemplateManifests = (e) => {
+const processTemplateManifests = () => {
 
     getMetaData().then(data => {
         if (data) {
@@ -282,7 +271,7 @@ const processTemplateManifests = (e) => {
         console.log(chalk `{red ERROR: ${e}}`);
     })
 }
-const processComponentManifests = (e) => {
+const processComponentManifests = () => {
 
     getMetaData().then(data => {
         if (data) {
@@ -331,7 +320,7 @@ function scaffoldTemplateManifest(template) {
         icon: icon,
         fields: fields,
         inherits: inherits
-    }).then(function (results) {        
+    }).then(function () {        
     });
 }
 
@@ -347,7 +336,7 @@ function scaffoldPlaceholdersManifest(placeholders) {
         dryrun: dryrun,
         extension: extension,
         placeholders: result
-    }).then(function (results) {
+    }).then(function () {
     });
 }
 
@@ -375,7 +364,7 @@ function scaffoldComponentManifest(component) {
         displayName: component.displayName,
         fields: fields,
         placeholders: placeholders
-    }).then(function (results) {
+    }).then(function () {
     });
 }
 /*
@@ -404,8 +393,6 @@ function sync() {
             }, 200);
         }
     }
-
-    var actions = [];
 
     progressBar = term.progressBar({
         width: 100,

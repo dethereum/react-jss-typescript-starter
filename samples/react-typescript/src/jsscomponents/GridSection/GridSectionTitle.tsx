@@ -11,11 +11,11 @@ interface Props {
     };
 }
 
-const SectionTitle: React.StatelessComponent<Props> = ({ title, headingLevel, parameters }) => {
+const SectionTitle: React.StatelessComponent<Props> = ({ title, headingLevel }) => {
 
     return (
         <div className="m-section__title--container">
-            <Heading level={headingLevel ? headingLevel : undefined} className="m-section__title--heading">
+            <Heading level={headingLevel} className="m-section__title--heading">
                 {title}
             </Heading>
         </div>

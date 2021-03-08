@@ -24,7 +24,6 @@
     ], 
     "types": [
       "node",
-      "react-app-env"
     ]
   }
   

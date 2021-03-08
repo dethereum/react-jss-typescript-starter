@@ -59,7 +59,7 @@ class StyleguideLayoutTabs extends React.Component<StyleguideLayoutTabsProps, St
               ))}
         </ul>
         <div className="p-3 border-left border-right border-bottom">
-          {(tabsPlaceholder || []).map((tab: any, index: number) => {
+          {(tabsPlaceholder || []).map((tab: any ) => {
             const isValid = tab.props && tab.props.fields;
 
             // allow experience editor markup components to render

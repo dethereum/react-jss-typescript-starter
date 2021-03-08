@@ -92,7 +92,7 @@ export function getSitecoreProxyConfiguration(): ProxyConfig {
        * We could use the xfwd option of http-proxy, but express will use ipv6 formatted
        * IPs by default and there are reported issues using ipv6 with GeoIP.
        */
-      onProxyReq: (proxyReq, req, res) => {
+      onProxyReq: (proxyReq, req) => {
         const apiHost = getApiHost();
         if (!req.url.startsWith('http')) {
           req.url = apiHost + req.url;
@@ -144,7 +144,7 @@ export function getSitecoreProxyConfiguration(): ProxyConfig {
       })
     },
 
-    createViewBag: (request: ClientRequest, response: ServerResponse, proxyResponse: IncomingMessage, layoutServiceData: any) => {
+    createViewBag: async (request: ClientRequest, response: ServerResponse, proxyResponse: IncomingMessage, layoutServiceData): Promise<object> => {
       // fetches the dictionary from the Sitecore server for the current language so it can be SSR'ed
       // has a default cache applied since dictionary data is quite static and it helps rendering performance a lot
       if (!layoutServiceData || !layoutServiceData.sitecore || !layoutServiceData.sitecore.context) {
@@ -163,23 +163,25 @@ export function getSitecoreProxyConfiguration(): ProxyConfig {
 
       const cached = dictionaryCache.get(cacheKey);
 
-      if (cached) return Promise.resolve(cached);
+      if (cached && typeof cached == 'object') return cached;
 
-      const apiHost = getApiHost();
-      return fetch(
-        `${apiHost}/sitecore/api/jss/dictionary/${appName}/${language}?sc_apikey=${
+
+      const result = await fetch(
+        `${getApiHost()}/sitecore/api/jss/dictionary/${appName}/${language}?sc_apikey=${
           Environment.reactAppProcessEnv.REACT_APP_SITECORE_API_KEY
         }`
       )
-        .then((result) => result.json())
-        .then((json) => {
-          const viewBag = {
-            dictionary: json && json.phrases,
-          };
 
-          dictionaryCache.set(cacheKey, viewBag);
-          return viewBag;
-        });
+      const json = await result.json();
+      
+      const viewBag = {
+        dictionary: json && json.phrases,
+      };
+
+      dictionaryCache.set(cacheKey, viewBag);
+
+      return viewBag;
+
     },
   };
 

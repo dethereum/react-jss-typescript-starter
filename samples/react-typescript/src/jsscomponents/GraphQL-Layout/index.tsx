@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Placeholder, withSitecoreContext, SitecoreContext, ComponentRendering } from '@sitecore-jss/sitecore-jss-react';
+import { Placeholder, withSitecoreContext, ComponentRendering } from '@sitecore-jss/sitecore-jss-react';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GraphQlLayoutBaseProps } from './GraphQlLayout.props';
 
 const GraphQLLayout = ({ sitecoreContext, rendering }: { sitecoreContext: any, rendering: ComponentRendering }): JSX.Element => {

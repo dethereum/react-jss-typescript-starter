@@ -8,8 +8,6 @@ import RouteHandler from './RouteHandler';
 import { ApolloClient } from '@apollo/client';
 import { NormalizedCacheObject } from '@apollo/client/cache';
 
-import { StaticRouter } from 'react-router';
-
 import './assets/css/app.css';
 import './assets/css/highlightjs_github.css';
 import './assets/sass/index.scss';

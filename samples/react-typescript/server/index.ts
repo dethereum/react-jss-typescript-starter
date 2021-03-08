@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as express from 'express';
+import express from 'express';
 import compression from 'compression';  // compresses requests
 import scProxy from '@sitecore-jss/sitecore-jss-proxy';
 import { renderView, urlRouteParser } from '../server.bundle/server';
@@ -53,31 +53,6 @@ function loadEnvironmentVariables(envCmdPath: any): void {
   }
 }
 
-function prepServer(expressInstance: express.Express, config: ProxyConfig, port: number): void {
-  // enable gzip compression for appropriate file types
-  expressInstance.use(compression());
-
-  // turn off x-powered-by http header
-  expressInstance.settings['x-powered-by'] = false;
-
-  // Ignore (204 - no content) requests to /sockjs-node/ - is for development tooling client-side
-  expressInstance.use('/sockjs-node/', (req, res) => res.status(204));
-
-  // Serve static app assets from local /dist folder
-  expressInstance.use(
-    `/dist/${process.env.REACT_APP_SITECORE_JSS_APP_NAME}/`,
-    express.static('./build', {
-      fallthrough: false, // force 404 for unknown assets under /dist/<appName>/
-    })
-  );
-
-  // For any other requests, we render app routes server-side and return them
-  expressInstance.use('*', scProxy(renderView, config, urlRouteParser));
-
-  expressInstance.listen(port, () => {
-    console.log(`Web server listening on port ${port}!`);
-  });
-}
 
 function runServer(): void {
   const config: ProxyConfig = getSitecoreProxyConfiguration();
